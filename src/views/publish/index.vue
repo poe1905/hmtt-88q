@@ -63,17 +63,17 @@
             >{{ articleStatus[scope.row.status].label }}</el-tag>
           </template>
 
-        </el-table-column>
+        </el-table-column >
         <el-table-column label="标题" prop="title"></el-table-column>
          <el-table-column
           prop="pubdate"
           label="发布日期"
           width="210">
         </el-table-column>
-        <el-table-column label="操作">
-          <template>
+        <el-table-column label="操作" prop="data">
+          <template slot-scope="scope">
             <el-button size="mini">编辑</el-button>
-            <el-button size="mini" type="danger">删除</el-button>
+            <el-button size="mini" type="danger" @click="delse(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -198,6 +198,17 @@ export default {
       console.log(index)
       // 这个函数里面有一个变量为页码当前变化的页码
       this.loglistdata(index)
+    },
+    delse (abs) {
+      console.log(abs)
+      this.$axios({
+        method: 'DELETE',
+        url: `/articles/${abs}`
+      }).then(req => {
+        console.log(req)
+      }).catch(err => {
+        console.log(err, '删除失败')
+      })
     }
 
     // 获取所有 类别的请求方法

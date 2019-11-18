@@ -63,6 +63,10 @@ const router = new VueRouter({
 // 路由卫士, 当路由开始的时候通过路由守卫的时候要激活 顶部加载条的开始阶段
 router.beforeEach((to, from, next) => {
   // 路由开始的时候加载请求加载条
+  console.log(to, from)
+  if (to === from) {
+    return next()
+  }
   NProgress.start()
   if (to.path === '/home') {
     return next()
